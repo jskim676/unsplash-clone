@@ -1,31 +1,41 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './header.css';
 import { createApi } from 'unsplash-js';
 
-const Header = () => {
+const Header = ({ searchWord }) => {
+    const [keyword, setKeyword] = useState('');
     const unsplash = createApi({
         accessKey: 'sQC0kH3cG6V5Ch-rOP4JmUsy5OiUGtTdQDidEikn3qU',
     });
-    unsplash.search
-        .getPhotos({
-            query: 'cat',
-            page: 1,
-            perPage: 20,
-        })
-        .then((result) => {
-            if (result.type === 'success') {
-                const photo = result.response;
-                console.log(photo);
-            }
-        });
+    const handleSearch = (event) => {
+        event.preventDefault();
+        unsplash.search
+            .getPhotos({
+                query: keyword,
+                page: 1,
+                perPage: 20,
+            })
+            .then((result) => {
+                if (result.type === 'success') {
+                    const photo = result.response;
+                    console.log(photo);
+                    searchWord(keyword);
+                }
+            });
+    };
     return (
         <header>
             <nav>
                 <div className="logo">Unsplash Clone</div>
-                <div className="search-bar">
-                    <input type="text" />
+                <form className="search-bar" onSubmit={handleSearch}>
+                    <input
+                        type="text"
+                        onChange={(e) => {
+                            setKeyword(e.target.value);
+                        }}
+                    />
                     <button>검색</button>
-                </div>
+                </form>
             </nav>
         </header>
     );
