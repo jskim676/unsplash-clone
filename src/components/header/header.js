@@ -1,7 +1,23 @@
 import React from 'react';
 import './header.css';
+import { createApi } from 'unsplash-js';
 
 const Header = () => {
+    const unsplash = createApi({
+        accessKey: 'sQC0kH3cG6V5Ch-rOP4JmUsy5OiUGtTdQDidEikn3qU',
+    });
+    unsplash.search
+        .getPhotos({
+            query: 'cat',
+            page: 1,
+            perPage: 20,
+        })
+        .then((result) => {
+            if (result.type === 'success') {
+                const photo = result.response;
+                console.log(photo);
+            }
+        });
     return (
         <header>
             <nav>
