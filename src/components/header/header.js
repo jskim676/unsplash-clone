@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import './header.css';
 import { createApi } from 'unsplash-js';
 
-const Header = ({ searchWord }) => {
+const Header = ({ searchWord, searchData }) => {
     const [keyword, setKeyword] = useState('');
     const unsplash = createApi({
         accessKey: 'sQC0kH3cG6V5Ch-rOP4JmUsy5OiUGtTdQDidEikn3qU',
@@ -17,9 +17,9 @@ const Header = ({ searchWord }) => {
             })
             .then((result) => {
                 if (result.type === 'success') {
-                    const photo = result.response;
-                    console.log(photo);
+                    const photo = result.response.results;
                     searchWord(keyword);
+                    searchData(photo);
                 }
             });
     };
