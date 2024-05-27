@@ -1,27 +1,19 @@
 import React, { useState } from 'react';
 import './header.css';
-import { createApi } from 'unsplash-js';
+import { searchPhotos } from '../unsplash-api';
 
 const Header = ({ searchWord, searchData }) => {
     const [keyword, setKeyword] = useState('');
-    const unsplash = createApi({
-        accessKey: 'sQC0kH3cG6V5Ch-rOP4JmUsy5OiUGtTdQDidEikn3qU',
-    });
+
     const handleSearch = (event) => {
         event.preventDefault();
-        unsplash.search
-            .getPhotos({
-                query: keyword,
-                page: 1,
-                perPage: 20,
-            })
-            .then((result) => {
-                if (result.type === 'success') {
-                    const photo = result.response.results;
-                    searchWord(keyword);
-                    searchData(photo);
-                }
-            });
+        searchPhotos(keyword, 1, 20).then((result) => {
+            if (result.type === 'success') {
+                const photo = result.response.results;
+                searchWord(keyword);
+                searchData(photo);
+            }
+        });
     };
     return (
         <header>

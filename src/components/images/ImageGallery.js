@@ -1,26 +1,18 @@
 import React, { useState, useEffect } from 'react';
-import { createApi } from 'unsplash-js';
 import './ImageGallery.css';
+import { listPhotos } from '../unsplash-api';
 
 const ImageGallery = ({ images }) => {
     const [photolist, setPhotolist] = useState([]);
 
     useEffect(() => {
         if (images.length === 0) {
-            const unsplash = createApi({
-                accessKey: 'sQC0kH3cG6V5Ch-rOP4JmUsy5OiUGtTdQDidEikn3qU',
+            listPhotos(1, 20).then((result) => {
+                if (result.type === 'success') {
+                    const photos = result.response.results;
+                    setPhotolist(photos);
+                }
             });
-            unsplash.photos
-                .list({
-                    page: 1,
-                    perPage: 20,
-                })
-                .then((result) => {
-                    if (result.type === 'success') {
-                        const photos = result.response.results;
-                        setPhotolist(photos);
-                    }
-                });
         }
     }, [images]);
 
