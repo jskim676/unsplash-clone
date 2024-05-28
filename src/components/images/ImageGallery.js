@@ -6,7 +6,7 @@ const ImageGallery = ({ images }) => {
     const [photolist, setPhotolist] = useState([]);
 
     useEffect(() => {
-        if (images.length === 0) {
+        if (images === '') {
             listPhotos(1, 20).then((result) => {
                 if (result.type === 'success') {
                     const photos = result.response.results;
@@ -16,11 +16,15 @@ const ImageGallery = ({ images }) => {
         }
     }, [images]);
 
+    if (Array.isArray(images) && images.length === 0) {
+        return null;
+    }
+
     return (
         <section className="image-gallery">
-            {images.length > 0
+            {Array.isArray(images) && images.length > 0
                 ? images.map((image) => <img key={image.id} src={image.urls.small} alt={image.alt_description} />)
-                : photolist.map((item) => <img key={item.id} src={item.urls.small} alt={item.alt_description}></img>)}
+                : photolist.map((item) => <img key={item.id} src={item.urls.small} alt={item.alt_description} />)}
         </section>
     );
 };
