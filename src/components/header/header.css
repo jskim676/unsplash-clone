@@ -3,8 +3,7 @@ header {
     padding: 10px 20px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     display: flex;
-    justify-content: space-between;
-    align-items: center;
+    flex-direction: column;
 }
 
 nav {
@@ -35,6 +34,13 @@ nav {
 }
 
 .search-bar button {
+    border: 0;
+    background-color: initial;
     position: absolute;
     right: 10px;
+}
+
+.search-bar button img {
+    width: 24px;
+    height: 24px;
 }

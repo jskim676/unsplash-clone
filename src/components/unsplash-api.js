@@ -19,4 +19,11 @@ const searchPhotos = (query, page, perPage) => {
     });
 };
 
-export { listPhotos, searchPhotos };
+const listTopics = (page, perPage) => {
+    return api.topics.list({
+        page: page,
+        perPage: perPage,
+    });
+};
+
+export { listPhotos, searchPhotos, listTopics };

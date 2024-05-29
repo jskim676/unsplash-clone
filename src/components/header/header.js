@@ -1,20 +1,31 @@
 import React, { useState } from 'react';
 import './header.css';
 import { searchPhotos } from '../unsplash-api';
+import Topics from './topic';
 
 const Header = ({ searchWord, searchData }) => {
     const [keyword, setKeyword] = useState('');
 
-    const handleSearch = (event) => {
-        event.preventDefault();
-        searchPhotos(keyword, 1, 20).then((result) => {
+    const searching = (data) => {
+        searchPhotos(data, 1, 20).then((result) => {
             if (result.type === 'success') {
                 const photo = result.response.results;
-                searchWord(keyword);
+                searchWord(data);
                 searchData(photo);
             }
         });
     };
+
+    const handleSearch = (event) => {
+        event.preventDefault();
+        searching(keyword);
+    };
+
+    const titleSearch = (result) => {
+        setKeyword(result);
+        searching(result);
+    };
+
     return (
         <header>
             <nav>
@@ -26,9 +37,12 @@ const Header = ({ searchWord, searchData }) => {
                             setKeyword(e.target.value);
                         }}
                     />
-                    <button>검색</button>
+                    <button>
+                        <img src="/search-icon.svg" alt="" />
+                    </button>
                 </form>
             </nav>
+            <Topics sendTitle={titleSearch} />
         </header>
     );
 };
