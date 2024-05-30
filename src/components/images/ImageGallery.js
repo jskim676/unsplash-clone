@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './ImageGallery.css';
 import { listPhotos } from '../unsplash-api';
 
-const ImageGallery = ({ images }) => {
+const ImageGallery = ({ images, modalSwitch }) => {
     const [photolist, setPhotolist] = useState([]);
 
     useEffect(() => {
@@ -20,11 +20,19 @@ const ImageGallery = ({ images }) => {
         return null;
     }
 
+    const imgModal = () => {
+        modalSwitch(true);
+    };
+
     return (
         <section className="image-gallery">
             {Array.isArray(images) && images.length > 0
-                ? images.map((image) => <img key={image.id} src={image.urls.small} alt={image.alt_description} />)
-                : photolist.map((item) => <img key={item.id} src={item.urls.small} alt={item.alt_description} />)}
+                ? images.map((image) => (
+                      <img key={image.id} src={image.urls.small} alt={image.alt_description} onClick={imgModal} />
+                  ))
+                : photolist.map((item) => (
+                      <img key={item.id} src={item.urls.small} alt={item.alt_description} onClick={imgModal} />
+                  ))}
         </section>
     );
 };
