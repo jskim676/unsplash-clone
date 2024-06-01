@@ -26,4 +26,10 @@ const listTopics = (page, perPage) => {
     });
 };
 
-export { listPhotos, searchPhotos, listTopics };
+const statsPhoto = (id) => {
+    return api.photos.getStats({
+        photoId: id,
+    });
+};
+
+export { listPhotos, searchPhotos, listTopics, statsPhoto };

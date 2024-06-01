@@ -8,6 +8,7 @@ import ImageModal from './components/modal/imageModal';
 function App() {
     const [receiveWord, setReceiveWord] = useState('');
     const [receiveData, setReceiveData] = useState('');
+    const [receiveImgData, setReceiveImgData] = useState({});
     const [receiveModal, setReceiveModal] = useState(false);
 
     const searchWordChange = (result) => {
@@ -22,12 +23,16 @@ function App() {
         setReceiveModal(result);
     };
 
+    const imageDataCheck = (result) => {
+        setReceiveImgData(result);
+    };
+
     return (
         <div className="App">
             <Header searchWord={searchWordChange} searchData={searchDataChange} />
             <Explain title={receiveWord} />
-            <ImageGallery images={receiveData} modalSwitch={modalChange} />
-            <ImageModal isOpen={receiveModal} closeModal={() => setReceiveModal(false)} />
+            <ImageGallery images={receiveData} modalSwitch={modalChange} imgData={imageDataCheck} />
+            <ImageModal isOpen={receiveModal} closeModal={() => setReceiveModal(false)} imgModalData={receiveImgData} />
         </div>
     );
 }
