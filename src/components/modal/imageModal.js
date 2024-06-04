@@ -4,11 +4,13 @@ import './imageModal.css';
 import { statsPhoto } from '../unsplash-api';
 
 const ImageModal = ({ isOpen, closeModal, imgModalData }) => {
-    // console.log(imgModalData);
-    statsPhoto(imgModalData.id).then((result) => {
-        const photoViews = result.response;
-        console.log(photoViews);
-    });
+    if (imgModalData.length > 0) {
+        console.log(imgModalData);
+        statsPhoto(imgModalData.id).then((result) => {
+            const photoViews = result.response;
+            console.log(photoViews);
+        });
+    }
     return (
         <div>
             {isOpen ? (

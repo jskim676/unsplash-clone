@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import './ImageGallery.css';
-import { listPhotos } from '../unsplash-api';
+import { listPhotos, topicsPhotos } from '../unsplash-api';
 
-const ImageGallery = ({ images, modalSwitch, imgData }) => {
+const ImageGallery = ({ images, modalSwitch, imgData, topic }) => {
     const [photolist, setPhotolist] = useState([]);
-
     useEffect(() => {
         if (images === '') {
             listPhotos(1, 20).then((result) => {
@@ -14,7 +13,15 @@ const ImageGallery = ({ images, modalSwitch, imgData }) => {
                 }
             });
         }
-    }, [images]);
+        if (topic !== '') {
+            topicsPhotos(topic, 1, 20).then((result) => {
+                if (result.type === 'success') {
+                    const topicPhotos = result.response.results;
+                    setPhotolist(topicPhotos);
+                }
+            });
+        }
+    }, [images, topic]);
 
     if (Array.isArray(images) && images.length === 0) {
         return null;

@@ -8,6 +8,7 @@ import ImageModal from './components/modal/imageModal';
 function App() {
     const [receiveWord, setReceiveWord] = useState('');
     const [receiveData, setReceiveData] = useState('');
+    const [receiveTopic, setReceiveTopic] = useState('');
     const [receiveImgData, setReceiveImgData] = useState({});
     const [receiveModal, setReceiveModal] = useState(false);
 
@@ -27,11 +28,21 @@ function App() {
         setReceiveImgData(result);
     };
 
+    const topicWordChange = (result) => {
+        setReceiveWord(result);
+        setReceiveTopic(result);
+    };
+
     return (
         <div className="App">
-            <Header searchWord={searchWordChange} searchData={searchDataChange} />
+            <Header searchWord={searchWordChange} searchData={searchDataChange} topicWord={topicWordChange} />
             <Explain title={receiveWord} />
-            <ImageGallery images={receiveData} modalSwitch={modalChange} imgData={imageDataCheck} />
+            <ImageGallery
+                images={receiveData}
+                modalSwitch={modalChange}
+                imgData={imageDataCheck}
+                topic={receiveTopic}
+            />
             <ImageModal isOpen={receiveModal} closeModal={() => setReceiveModal(false)} imgModalData={receiveImgData} />
         </div>
     );

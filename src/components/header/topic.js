@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { listTopics } from '../unsplash-api';
 import './topic.css';
 
-const Topics = ({ sendTitle }) => {
+const Topics = ({ sendTopic }) => {
     const [topicList, setTopicList] = useState([]);
 
     useEffect(() => {
@@ -19,7 +19,7 @@ const Topics = ({ sendTitle }) => {
             <ul className="topic-list">
                 {topicList ? (
                     topicList.map((topic) => (
-                        <li key={topic.id} onClick={() => sendTitle(topic.title)}>
+                        <li key={topic.id} onClick={() => sendTopic(topic.slug)}>
                             {topic.title}
                         </li>
                     ))

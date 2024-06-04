@@ -19,6 +19,12 @@ const searchPhotos = (query, page, perPage) => {
     });
 };
 
+const statsPhoto = (id) => {
+    return api.photos.getStats({
+        photoId: id,
+    });
+};
+
 const listTopics = (page, perPage) => {
     return api.topics.list({
         page: page,
@@ -26,10 +32,12 @@ const listTopics = (page, perPage) => {
     });
 };
 
-const statsPhoto = (id) => {
-    return api.photos.getStats({
-        photoId: id,
+const topicsPhotos = (IdOrSlug, page, perPage) => {
+    return api.topics.getPhotos({
+        topicIdOrSlug: IdOrSlug,
+        page: page,
+        perPage: perPage,
     });
 };
 
-export { listPhotos, searchPhotos, listTopics, statsPhoto };
+export { listPhotos, searchPhotos, statsPhoto, listTopics, topicsPhotos };

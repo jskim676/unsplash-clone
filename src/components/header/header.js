@@ -3,7 +3,7 @@ import './header.css';
 import { searchPhotos } from '../unsplash-api';
 import Topics from './topic';
 
-const Header = ({ searchWord, searchData }) => {
+const Header = ({ searchWord, searchData, topicWord }) => {
     const [keyword, setKeyword] = useState('');
 
     const searching = (data) => {
@@ -21,9 +21,8 @@ const Header = ({ searchWord, searchData }) => {
         searching(keyword);
     };
 
-    const titleSearch = (result) => {
-        setKeyword(result);
-        searching(result);
+    const topicSearch = (result) => {
+        topicWord(result);
     };
 
     return (
@@ -42,7 +41,7 @@ const Header = ({ searchWord, searchData }) => {
                     </button>
                 </form>
             </nav>
-            <Topics sendTitle={titleSearch} />
+            <Topics sendTopic={topicSearch} />
         </header>
     );
 };
