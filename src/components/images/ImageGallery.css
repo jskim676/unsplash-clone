@@ -1,11 +1,14 @@
-.image-gallery {
+.gallery-container {
+    padding: 0 20px;
+}
+
+.image-container {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    padding: 20px;
 }
 
-.image-gallery img {
+.image-container img {
     width: 450px;
     height: 250px;
     object-fit: cover;

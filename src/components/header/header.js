@@ -1,24 +1,13 @@
 import React, { useState } from 'react';
 import './header.css';
-import { searchPhotos } from '../unsplash-api';
 import Topics from './topic';
 
-const Header = ({ searchWord, searchData, topicWord }) => {
+const Header = ({ searchWord, topicWord }) => {
     const [keyword, setKeyword] = useState('');
-
-    const searching = (data) => {
-        searchPhotos(data, 1, 20).then((result) => {
-            if (result.type === 'success') {
-                const photo = result.response.results;
-                searchWord(data);
-                searchData(photo);
-            }
-        });
-    };
 
     const handleSearch = (event) => {
         event.preventDefault();
-        searching(keyword);
+        searchWord(keyword);
     };
 
     const topicSearch = (result) => {

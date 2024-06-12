@@ -1,56 +1,63 @@
 import React, { useState, useEffect } from 'react';
 import './ImageGallery.css';
-import { listPhotos, topicsPhotos } from '../unsplash-api';
+import { listPhotos, topicsPhotos, searchPhotos } from '../unsplash-api';
 
-const ImageGallery = ({ images, modalSwitch, imgData, topic }) => {
+const ImageGallery = ({ search, topic, modalSwitch, selectImgData }) => {
     const [photolist, setPhotolist] = useState([]);
+    const [loading, setLoading] = useState(true);
+
     useEffect(() => {
-        if (images === '') {
-            listPhotos(1, 20).then((result) => {
+        setLoading(true);
+        if (search) {
+            searchPhotos(search, 1, 20).then((result) => {
                 if (result.type === 'success') {
-                    const photos = result.response.results;
-                    setPhotolist(photos);
+                    const searchPhotos = result.response.results;
+                    setPhotolist(searchPhotos);
                 }
+                setLoading(false);
             });
-        }
-        if (topic !== '') {
+        } else if (topic) {
             topicsPhotos(topic, 1, 20).then((result) => {
                 if (result.type === 'success') {
                     const topicPhotos = result.response.results;
                     setPhotolist(topicPhotos);
                 }
+                setLoading(false);
+            });
+        } else {
+            listPhotos(1, 20).then((result) => {
+                if (result.type === 'success') {
+                    const photos = result.response.results;
+                    setPhotolist(photos);
+                }
+                setLoading(false);
             });
         }
-    }, [images, topic]);
-
-    if (Array.isArray(images) && images.length === 0) {
-        return null;
-    }
+    }, [search, topic]);
 
     const imgModal = (data) => {
         modalSwitch(true);
-        imgData(data);
+        selectImgData(data);
     };
 
     return (
         <section className="image-gallery">
-            {Array.isArray(images) && images.length > 0
-                ? images.map((image) => (
-                      <img
-                          key={image.id}
-                          src={image.urls.small}
-                          alt={image.alt_description}
-                          onClick={() => imgModal(image)}
-                      />
-                  ))
-                : photolist.map((item) => (
-                      <img
-                          key={item.id}
-                          src={item.urls.small}
-                          alt={item.alt_description}
-                          onClick={() => imgModal(item)}
-                      />
-                  ))}
+            {loading ? (
+                <div className="loading">loading...</div>
+            ) : (
+                <div className="gallery-container">
+                    <div className="image-container">
+                        {photolist.map((item) => (
+                            <img
+                                key={item.id}
+                                src={item.urls.small}
+                                alt={item.alt_description}
+                                onClick={() => imgModal(item)}
+                            />
+                        ))}
+                    </div>
+                </div>
+            )}
         </section>
     );
 };
