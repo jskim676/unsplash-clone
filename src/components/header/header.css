@@ -1,6 +1,6 @@
 header {
     background-color: #fff;
-    padding: 10px 20px;
+    padding: 10px 20px 0 20px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     display: flex;
     flex-direction: column;
@@ -10,11 +10,17 @@ header {
 
 nav {
     display: flex;
+    gap: 10px;
     align-items: center;
     width: 100%;
 }
 
-.logo {
+.logo-icon {
+    width: 32px;
+    height: 32px;
+}
+
+.logo-text {
     font-size: 24px;
     font-weight: bold;
 }
@@ -23,13 +29,13 @@ nav {
     flex: 1;
     display: flex;
     align-items: center;
-    margin-left: 20px;
+    margin-left: 10px;
     position: relative;
 }
 
 .search-bar input {
     width: 100%;
-    padding: 10px;
+    padding: 10px 20px;
     border: 1px solid #ccc;
     border-radius: 20px;
     font-size: 16px;

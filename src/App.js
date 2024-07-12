@@ -1,18 +1,24 @@
 import React, { useState } from 'react';
 import './App.css';
+import Modal from 'react-modal';
 import Explain from './components/explain/explain';
 import Header from './components/header/header';
 import ImageGallery from './components/images/ImageGallery';
 import ImageModal from './components/modal/imageModal';
+
+Modal.setAppElement('#root');
 
 function App() {
     const [receiveWord, setReceiveWord] = useState('');
     const [receiveTopic, setReceiveTopic] = useState('');
     const [receiveImgData, setReceiveImgData] = useState({});
     const [receiveModal, setReceiveModal] = useState(false);
+    const [titleName, setTitleName] = useState('');
 
     const searchWordChange = (result) => {
         setReceiveWord(result);
+        setReceiveTopic('');
+        setTitleName(result);
     };
 
     const modalChange = (result) => {
@@ -24,15 +30,16 @@ function App() {
     };
 
     const topicWordChange = (result) => {
-        setReceiveWord(result);
         setReceiveTopic(result);
+        setReceiveWord('');
+        setTitleName(result);
     };
 
     return (
         <div className="App">
             <Header searchWord={searchWordChange} topicWord={topicWordChange} />
             <main>
-                <Explain title={receiveWord} />
+                <Explain title={titleName} />
                 <ImageGallery
                     search={receiveWord}
                     topic={receiveTopic}

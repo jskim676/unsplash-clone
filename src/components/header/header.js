@@ -17,7 +17,8 @@ const Header = ({ searchWord, topicWord }) => {
     return (
         <header>
             <nav>
-                <div className="logo">Unsplash Clone</div>
+                <img className="logo-icon" src="./unsplash.svg" alt="" />
+                <div className="logo-text">Unsplash</div>
                 <form className="search-bar" onSubmit={handleSearch}>
                     <input
                         type="text"
